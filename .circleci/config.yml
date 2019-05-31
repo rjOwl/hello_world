@@ -57,7 +57,10 @@ jobs:
             wget -P /tmp -L https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
             tar -xvzf /tmp/docker-$VER.tgz -C /tmp 
             sudo mv -f /tmp/docker/docker* /usr/bin
-            sudo mv -f /tmp/docker/completion/* /usr/bin/completion
+            sudo mv -f /tmp/docker/completion/bash/*  /usr/bin/completion/bash/
+            sudo mv -f /tmp/docker/completion/flsh/*  /usr/bin/completion/flsh/
+            sudo mv -f /tmp/docker/completion/zsh/*  /usr/bin/completion/zsh/
+            
       - run:
          name: Build Docker image
          command: |

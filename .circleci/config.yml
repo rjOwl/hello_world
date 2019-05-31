@@ -80,7 +80,7 @@ jobs:
       - run: |
           TAG=0.1.$CIRCLE_BUILD_NUM
           docker build -t   formage/instabug-demo-docker:$TAG .     
-          docker login -u $DOCKERHUB_LOGIN -p $DOCKERHUB_PASSWORD         # (4)
+          docker login -u $DOCKERHUB_LOGIN -p $DOCKERHUB_PASSWORD    
           docker push formage/instabug-demo-docker:$TAG
 
 

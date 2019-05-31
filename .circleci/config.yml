@@ -60,6 +60,7 @@ jobs:
       - run:
          name: Build Docker image
          command: |
+            sudo dockerd 
             sudo docker build -t hello_world .
       - run:
           name: Push to DockerHub

@@ -79,7 +79,7 @@ jobs:
 
       - run: |
           TAG=0.1.$CIRCLE_BUILD_NUM
-          docker build -t   CircleCI-Public/circleci-demo-docker:$TAG .     
+          docker build -t   formage/InstaBug-demo-docker:$TAG .     
           docker login -u $DOCKERHUB_LOGIN -p $DOCKERHUB_PASSWORD         # (4)
           docker push formage/InstaBug-demo-docker:$TAG
 

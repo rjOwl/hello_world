@@ -47,7 +47,7 @@ jobs:
             VER="17.03.0-ce"
             wget -P /tmp -L https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
             tar -xvzf /tmp/docker-$VER.tgz -C /tmp 
-            sudo mv -f /tmp/docker/* /usr/bin
+            sudo mv -f /tmp/docker/docker* /usr/bin
       - run:
          name: Build Docker image
          command: docker build -t hello_world

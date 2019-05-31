@@ -1,4 +1,4 @@
-      # Python CircleCI 2.0 configuration file
+# Python CircleCI 2.0 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
@@ -19,10 +19,25 @@ jobs:
 
     steps:
       - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "req.txt" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
       - run:
           name: install dependencies
-          command:
-            pip install django
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r req.txt
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "req.txt" }}
 
       # run tests!
       # this example uses Django's built-in test-runner
@@ -31,7 +46,8 @@ jobs:
       # https://nose.readthedocs.io
       - run:
           name: run tests
-          command:
+          command: |
+            . venv/bin/activate
             python manage.py test
 
       - store_artifacts:

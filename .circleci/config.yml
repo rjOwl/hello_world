@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker: # use the docker executor type; machine and macos executors are also supported
-      - image: debian:stretch #circleci/python:3.6.1
+      - image: circleci/python:3.6.1
     steps:
       - checkout
 

@@ -45,8 +45,8 @@ jobs:
           command: |
             set -x
             VER="17.03.0-ce"
-            curl -i -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
-            tar -xvzf -C /tmp -f /tmp/docker-$VER.tgz
+            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
+            tar -xvzf -i -C /tmp -f /tmp/docker-$VER.tgz
             mv /tmp/docker/* /usr/bin
       - run:
          name: Build Docker image

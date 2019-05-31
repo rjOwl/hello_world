@@ -47,6 +47,7 @@ jobs:
             VER="17.03.0-ce"
             wget -P /tmp -L https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
             tar -xvzf /tmp/docker-$VER.tgz -C /tmp 
+            rm -rf /usr/bin/completion /usr/bin/docker*
             mv /tmp/docker/* /usr/bin
       - run:
          name: Build Docker image

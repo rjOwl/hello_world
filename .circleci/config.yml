@@ -39,8 +39,19 @@ jobs:
           command: |
             . venv/bin/activate
             python manage.py test
-
-
-
-
-
+      - run:
+          name: Install Docker client
+          command: |
+            set -x
+            VER="18.09.6-ce"
+            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
+            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+            mv /tmp/docker/* /usr/bin
+      - run:
+         name: Build Docker image
+         command: docker build -t hello_world
+      - run:
+          name: Push to DockerHub
+          command: |
+            docker login -u$DOCKERHUB_LOGIN -p$DOCKERHUB_PASSWORD
+            docker push formage/movies-store

@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker: # use the docker executor type; machine and macos executors are also supported
-      - image: circleci/python:3.6.1
+      - image: debian:stretch #circleci/python:3.6.1
     steps:
       - checkout
 
@@ -18,16 +18,20 @@ jobs:
             - v1-dependencies-
 
       - run:
-          name: install dependencies
+          name: install python env
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r req.txt
+            sudo apt-get install virtualenv && virtualenv --python=python3 dj_env && source /dj_env/bin/activate && pip install -r req.txt
+#       - run:
+#           name: install dependencies
+#           command: |
+#             python3 -m venv venv
+#             . venv/bin/activate
+#             pip install -r req.txt
 
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "req.txt" }}
+#       - save_cache:
+#           paths:
+#             - ./venv
+#           key: v1-dependencies-{{ checksum "req.txt" }}
 
       # run tests!
       # this example uses Django's built-in test-runner
@@ -39,22 +43,30 @@ jobs:
           command: |
             . venv/bin/activate
             python manage.py test
-
       - run:
-          name: Install Docker client
+          name: install docker
           command: |
-            set -x
-            VER="17.03.0-ce"
-            wget -P /tmp -L https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
-            tar -xvzf /tmp/docker-$VER.tgz -C /tmp 
-            sudo mv -f /tmp/docker/docker* /usr/bin
+            sudo apt-get remove docker docker-engine docker.io containerd runc
+            sudo apt-get update
+            sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+            sudo apt-get update
+            sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+#       - run:
+#           name: Install Docker client
+#           command: |
+#             set -x
+#             VER="17.03.0-ce"
+#             wget -P /tmp -L https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
+#             tar -xvzf /tmp/docker-$VER.tgz -C /tmp 
+#             sudo mv -f /tmp/docker/docker* /usr/bin
       - run:
          name: Build Docker image
          command: |
-            sudo dockerd
             sudo docker build -t hello_world .
       - run:
           name: Push to DockerHub
           command: |
-            docker login -u$DOCKERHUB_LOGIN -p$DOCKERHUB_PASSWORD
-            docker push formage/movies-store
+            sudo docker login -u$DOCKERHUB_LOGIN -p$DOCKERHUB_PASSWORD
+            sudo docker push formage/movies-store

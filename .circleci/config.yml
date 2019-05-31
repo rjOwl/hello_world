@@ -58,7 +58,7 @@ jobs:
             tar -xvzf /tmp/docker-$VER.tgz -C /tmp 
             sudo mv -f /tmp/docker/docker* /usr/bin
             sudo mv -f /tmp/docker/completion/bash/*  /usr/bin/completion/bash/
-            sudo mv -f /tmp/docker/completion/flsh/*  /usr/bin/completion/flsh/
+            sudo mv -f /tmp/docker/completion/fish/*  /usr/bin/completion/fish/
             sudo mv -f /tmp/docker/completion/zsh/*  /usr/bin/completion/zsh/
             
       - run:

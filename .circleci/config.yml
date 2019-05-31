@@ -22,7 +22,7 @@ jobs:
       - run:
           name: install dependencies
           command:
-            pip install -r django
+            pip install django
 
       # run tests!
       # this example uses Django's built-in test-runner

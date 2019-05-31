@@ -57,10 +57,11 @@ jobs:
             wget -P /tmp -L https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
             tar -xvzf /tmp/docker-$VER.tgz -C /tmp 
             sudo mv -f /tmp/docker/docker* /usr/bin
+            sudo mv -f /tmp/docker/completion/* /usr/bin/completion
       - run:
          name: Build Docker image
          command: |
-            sudo dockerd 
+            
             sudo docker build -t hello_world .
       - run:
           name: Push to DockerHub

@@ -67,7 +67,6 @@ jobs:
 
 
       # use a primary image that already has Docker (recommended)
-      # or install it during a build like we do here
       - run:
           name: Install Docker client
           command: |
@@ -82,7 +81,6 @@ jobs:
           command: |
             TAG=$CIRCLE_BUILD_NUM
             docker build -t   formage/instabug_demo_docker:$TAG .    
-
 
       - run: 
           name: Push to dockerhub

@@ -76,12 +76,16 @@ jobs:
             sudo tar -xz -C /tmp -f /tmp/docker-$VER.tgz
             sudo mv /tmp/docker/* /usr/bin   
 
-
       - run: 
-        name: Build and push to dockerhub
+        name: Build docker image
         command: |
           TAG=$CIRCLE_BUILD_NUM
           docker build -t   formage/instabug-demo-docker:$TAG .    
+
+
+      - run: 
+        name: Push to dockerhub
+        command: |
           docker login -u $DOCKERHUB_LOGIN -p $DOCKERHUB_PASSWORD    
           docker push formage/instabug-demo-docker:$TAG
 

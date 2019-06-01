@@ -87,6 +87,7 @@ jobs:
       - run: 
           name: Push to dockerhub
           command: |
+            TAG=$CIRCLE_BUILD_NUM
             docker login -u $DOCKERHUB_LOGIN -p $DOCKERHUB_PASSWORD    
             docker push formage/instabug_demo_docker:$TAG
 

@@ -39,7 +39,8 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            python code/manage.py test
+            ls
+            python manage.py test
 
 #       - run:
 #           name: Install Docker client
